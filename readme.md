@@ -75,15 +75,15 @@ ffmpeg version ...
 **Clone Existing:**
 
 ```bash
-git clone https://github.com/your-username/darwix-ai-assessment.git
-cd darwix-ai-assessment
+git clone https://github.com/also-aditya/Darwix_assignment.git
+cd Darwix_assignment
 ```
 
 **OR Create from Scratch:**
 
 ```bash
-mkdir darwix-ai-assessment
-cd darwix-ai-assessment
+mkdir Darwix_assignment
+cd Darwix_assignment
 git init
 ```
 
@@ -94,7 +94,7 @@ git init
 Ensure the following structure:
 
 ```
-darwix-ai-assessment/
+Darwix_assignment/
 ├── blog/
 │   ├── migrations/
 │   │   └── __init__.py
