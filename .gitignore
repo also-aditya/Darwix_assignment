@@ -1,0 +1,74 @@
+# Python/Django
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.sqlite3
+db.sqlite3
+migrations/
+!migrations/__init__.py
+
+# Virtual Environment
+
+venv/
+env/
+ENV/
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Django
+*.log
+*.pot
+*.pyc
+local_settings.py
+media/
+staticfiles/
+
+# Windows-specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.DS_Store  # In case of cross-platform development
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Testing/Coverage
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+htmlcov/
+
+# Temporary Files
+*.bak
+*.swp
+*~
+*.tmp
+
+# Build/Dependency Artifacts
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+sdist/
+var/
+wheels/
+*.whl
+pip-log.txt
+pip-delete-this-directory.txt
