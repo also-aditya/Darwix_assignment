@@ -1,4 +1,4 @@
-# Darwix AI Assessment Solution
+![darwix](https://github.com/user-attachments/assets/d1905352-eca8-4145-b425-b92eb5db6748)# Darwix AI Assessment Solution
 
 This repository implements two features for the Darwix AI assessment:
 
@@ -177,26 +177,6 @@ Open: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 audio_file: .wav or .mp3 file
 ```
 
-#### Output:
-
-```json
-{
-  "transcription": [
-    {
-      "speaker": "Speaker A",
-      "text": "Hello, how are you?",
-      "start_time": 0.0,
-      "end_time": 2.5
-    },
-    {
-      "speaker": "Speaker B",
-      "text": "I'm doing great, thanks!",
-      "start_time": 2.6,
-      "end_time": 4.0
-    }
-  ]
-}
-```
 
 #### Example cURL:
 
@@ -211,6 +191,9 @@ curl -X POST -F "audio_file=@\"C:\Program Files\test audio.wav\"" http://127.0.0
 ```
 
 ---
+example :
+![darwix-2](https://github.com/user-attachments/assets/756b496b-d896-4690-8482-d8e99275f882)
+
 
 ### Feature 2: Blog Post Title Suggestions
 
@@ -227,6 +210,7 @@ curl -X POST -F "audio_file=@\"C:\Program Files\test audio.wav\"" http://127.0.0
 ```
 
 #### Output:
+
 
 ```json
 {
@@ -245,6 +229,9 @@ curl -X POST -H "Content-Type: application/json" -d "{\"content\":\"This is a bl
 ```
 
 ---
+example:
+![darwix](https://github.com/user-attachments/assets/786a2744-0e4b-429c-8db9-78c212e57fb1)
+
 
 ## Testing with Postman
 
