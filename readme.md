@@ -1,74 +1,103 @@
-Darwix AI Assessment Solution
+# Darwix AI Assessment Solution
+
 This repository implements two features for the Darwix AI assessment:
 
-Audio Transcription with Diarization: Transcribes audio files and identifies speakers, returning results in JSON format.
-AI Blog Post Title Suggestions: Suggests blog post titles using NLP within a Django application.
+- **Audio Transcription with Diarization**: Transcribes audio files and identifies speakers, returning results in JSON format.  
+- **AI Blog Post Title Suggestions**: Suggests blog post titles using NLP within a Django application.
 
-Prerequisites
+---
 
-Python 3.10 or later: Download from python.org.
-Git for Windows: Download from git-scm.com.
-FFmpeg: Download from gyan.dev.
-API Keys: Obtain from assemblyai.com and huggingface.co.
-Text Editor: Notepad or Visual Studio Code for creating files like .env.
-Command Prompt: Built into Windows 10/11 for running commands.
+## Prerequisites
 
-Setup Instructions (Windows)
-1. Install Required Software
+- **Python 3.10 or later**: [Download](https://www.python.org/downloads/)
+- **Git for Windows**: [Download](https://git-scm.com/)
+- **FFmpeg**: [Download](https://www.gyan.dev/ffmpeg/builds/)
+- **API Keys**: [AssemblyAI](https://www.assemblyai.com/) and [Hugging Face](https://huggingface.co/)
+- **Text Editor**: Notepad or Visual Studio Code
+- **Command Prompt**: Built-in on Windows 10/11
 
-Python 3.10+:
-Download and install, checking "Add Python to PATH" during setup.
-Verify:python --version
+---
 
-Expected: Python 3.10.x or higher.
+## Setup Instructions (Windows)
 
+### 1. Install Required Software
 
-Git:
-Install with default settings.
-Verify:git --version
+**Python 3.10+:**
 
-Expected: git version 2.x.x.
+```bash
+python --version
+```
 
+Expected:
 
-FFmpeg:
-Download ffmpeg-release-full.7z from gyan.dev.
-Extract to C:\ffmpeg using 7-Zip.
-Add to PATH:
-Right-click 'This PC' > Properties > Advanced system settings > Environment Variables.
-Under "System variables," edit Path, add C:\ffmpeg\bin.
+```
+Python 3.10.x
+```
 
+---
 
-Verify:ffmpeg -version
+**Git:**
 
-Expected: FFmpeg version information.
+```bash
+git --version
+```
 
+Expected:
 
+```
+git version 2.x.x
+```
 
-2. Clone or Create the Repository
+---
 
-Create a GitHub Repository:
-Go to github.com, create a new repository (e.g., darwix-ai-assessment), and note the URL (e.g., https://github.com/your-username/darwix-ai-assessment.git).
+**FFmpeg:**
 
+- Download `ffmpeg-release-full.7z` from [gyan.dev](https://www.gyan.dev/ffmpeg/builds/)
+- Extract to `C:\ffmpeg` using 7-Zip
+- Add `C:\ffmpeg\bin` to your **System PATH**
 
-Clone Locally:
-Open Command Prompt:git clone https://github.com/your-username/darwix-ai-assessment.git
+Verify:
+
+```bash
+ffmpeg -version
+```
+
+Expected:
+
+```
+ffmpeg version ...
+```
+
+---
+
+### 2. Clone or Create the Repository
+
+**Clone Existing:**
+
+```bash
+git clone https://github.com/your-username/darwix-ai-assessment.git
 cd darwix-ai-assessment
+```
 
+**OR Create from Scratch:**
 
-Alternatively, create a new directory and initialize Git:mkdir darwix-ai-assessment
+```bash
+mkdir darwix-ai-assessment
 cd darwix-ai-assessment
 git init
+```
 
+---
 
+### 3. Set Up Project Structure
 
+Ensure the following structure:
 
-
-3. Set Up Project Structure
-Ensure the following structure exists (create manually if not cloning):
+```
 darwix-ai-assessment/
 ├── blog/
 │   ├── migrations/
-│   │   ├── __init__.py
+│   │   └── __init__.py
 │   ├── __init__.py
 │   ├── admin.py
 │   ├── apps.py
@@ -89,66 +118,69 @@ darwix-ai-assessment/
 ├── .env
 ├── .gitignore
 └── README.md
+```
 
+---
 
-Copy the provided files (from the assessment codebase) into this structure.
-Use Notepad or VS Code to create/edit files.
+### 4. Configure Environment Variables
 
-4. Configure Environment Variables
+Create a `.env` file in the root:
 
-Obtain API Keys:
-Sign up at assemblyai.com for an AssemblyAI API key.
-Sign up at huggingface.co for a Hugging Face API key (optional for local BART model).
-
-
-Create .env File:
-Open Notepad, add:ASSEMBLYAI_API_KEY=your_assemblyai_api_key
+```
+ASSEMBLYAI_API_KEY=your_assemblyai_api_key
 HUGGINGFACE_API_KEY=your_huggingface_api_key
+```
 
+Use Notepad or VS Code. Make sure the file is named `.env`, not `.env.txt`.
 
-Save as .env in darwix-ai-assessment (ensure it’s .env, not .env.txt).
-In File Explorer, enable "File name extensions" (View > File name extensions) to verify.
+---
 
+### 5. Set Up Virtual Environment
 
+```bash
+python -m venv venv
+venv\Scripts\activate.bat
+pip install -r requirements.txt
+```
 
-5. Set Up Virtual Environment
+If torch fails:
 
-Create a virtual environment:python -m venv venv
+```bash
+pip install torch==2.3.0 --no-cache-dir
+```
 
+---
 
-Activate it:venv\Scripts\activate.bat
+### 6. Run the Django Application
 
-Your prompt should show (venv).
-Install dependencies:pip install -r requirements.txt
+```bash
+cd blog_project
+python manage.py migrate
+python manage.py runserver
+```
 
-If torch fails, try:pip install torch==2.3.0 --no-cache-dir
+Open: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
+---
 
+## Endpoints
 
-6. Run the Django Application
+### Feature 1: Audio Transcription with Diarization
 
-Navigate to the project directory:cd blog_project
+- **URL:** `/api/transcribe/`
+- **Method:** POST
+- **Content-Type:** `multipart/form-data`
 
+#### Input:
 
-Apply migrations:python manage.py migrate
+```
+audio_file: .wav or .mp3 file
+```
 
+#### Output:
 
-Start the server:python manage.py runserver
-
-
-Verify by opening http://127.0.0.1:8000 in a browser (shows Django’s default page).
-
-Endpoints
-Feature 1: Audio Transcription with Diarization
-
-URL: /api/transcribe/
-Method: POST
-Content-Type: multipart/form-data
-Input:
-audio_file: Audio file (.wav or .mp3, e.g., a short conversation with multiple speakers).
-
-
-Output:{
+```json
+{
   "transcription": [
     {
       "speaker": "Speaker A",
@@ -164,83 +196,88 @@ Output:{
     }
   ]
 }
+```
 
+#### Example cURL:
 
-Example cURL Command:
-Prepare an audio file (e.g., C:\Users\YourUsername\Documents\test_audio.wav).
-Run in Command Prompt:curl -X POST -F "audio_file=@C:\Users\YourUsername\Documents\test_audio.wav" http://127.0.0.1:8000/api/transcribe/
+```bash
+curl -X POST -F "audio_file=@C:\Users\YourUsername\Documents\test_audio.wav" http://127.0.0.1:8000/api/transcribe/
+```
 
+If path has spaces:
 
-For paths with spaces:curl -X POST -F "audio_file=@\"C:\Program Files\test audio.wav\"" http://127.0.0.1:8000/api/transcribe/
+```bash
+curl -X POST -F "audio_file=@\"C:\Program Files\test audio.wav\"" http://127.0.0.1:8000/api/transcribe/
+```
 
+---
 
+### Feature 2: Blog Post Title Suggestions
 
+- **URL:** `/api/suggest-titles/`
+- **Method:** POST
+- **Content-Type:** `application/json`
 
+#### Input:
 
-Feature 2: Blog Post Title Suggestions
-
-URL: /api/suggest-titles/
-Method: POST
-Content-Type: application/json
-Input:{
+```json
+{
   "content": "This is a blog post about the benefits of AI in healthcare, including diagnostics and treatment."
 }
+```
 
+#### Output:
 
-Output:{
+```json
+{
   "titles": [
     "AI in Healthcare: Transforming Diagnostics",
     "The Future of Medicine with AI",
     "How AI Enhances Healthcare Outcomes"
   ]
 }
+```
 
+#### Example cURL:
 
-Example cURL Command:
-Run in Command Prompt:curl -X POST -H "Content-Type: application/json" -d "{\"content\":\"This is a blog post about the benefits of AI in healthcare, including diagnostics and treatment.\"}" http://127.0.0.1:8000/api/suggest-titles/
+```bash
+curl -X POST -H "Content-Type: application/json" -d "{\"content\":\"This is a blog post about the benefits of AI in healthcare, including diagnostics and treatment.\"}" http://127.0.0.1:8000/api/suggest-titles/
+```
 
+---
 
+## Testing with Postman
 
+### Transcription:
 
+- Method: POST  
+- URL: `http://127.0.0.1:8000/api/transcribe/`  
+- Body: `form-data`  
+  - Key: `audio_file`  
+  - Type: File  
+  - Choose File: Your .wav/.mp3 file  
 
-Testing with cURL
+### Title Suggestions:
 
-Windows Notes:
-cURL is built into Windows 10/11. Verify: curl --version.
-Use backslashes (\) in file paths (e.g., C:\Users\YourUsername\Documents\test_audio.wav).
-Escape quotes in JSON payloads (e.g., {\"content\":\"text\"}).
-For PowerShell, use curl.exe and single quotes for JSON:curl.exe -X POST -H "Content-Type: application/json" -d '{"content":"This is a blog post about AI."}' http://127.0.0.1:8000/api/suggest-titles/
+- Method: POST  
+- URL: `http://127.0.0.1:8000/api/suggest-titles/`  
+- Headers: `Content-Type: application/json`  
+- Body (raw, JSON):
 
-
-
-
-
-Alternative Testing with Postman
-
-Install Postman from postman.com.
-Transcription:
-Create a POST request to http://127.0.0.1:8000/api/transcribe/.
-In "Body" > form-data, add key audio_file, set type to File, and select your audio file.
-Click "Send".
-
-
-Title Suggestions:
-Create a POST request to http://127.0.0.1:8000/api/suggest-titles/.
-In "Headers," add Content-Type: application/json.
-In "Body" > raw > JSON, enter:{
+```json
+{
   "content": "This is a blog post about AI in healthcare."
 }
+```
 
+---
 
-Click "Send".
+## Project Structure Recap
 
-
-
-Project Structure
+```
 darwix-ai-assessment/
 ├── blog/
 │   ├── migrations/
-│   │   ├── __init__.py
 │   ├── __init__.py
 │   ├── admin.py
 │   ├── apps.py
@@ -261,77 +298,134 @@ darwix-ai-assessment/
 ├── .env
 ├── .gitignore
 └── README.md
+```
 
-Implementation Notes
+---
 
-Transcription: Uses AssemblyAI for transcription and diarization, supporting multilingual audio (default: English; modify language_code in blog/utils/transcription.py for other languages, e.g., es for Spanish).
-Title Suggestions: Uses Hugging Face's facebook/bart-large-cnn model to generate three titles.
-Error Handling: Handles invalid inputs (e.g., missing files, invalid JSON) and API errors.
-File Management: Temporary audio files are deleted after processing.
+## Implementation Notes
 
-Dependencies
-Listed in requirements.txt:
+- **Transcription**: Uses AssemblyAI (default language: English; update `language_code` for others).
+- **Title Suggestions**: Uses Hugging Face `facebook/bart-large-cnn`.
+- **Error Handling**: Graceful handling for invalid inputs.
+- **File Cleanup**: Audio files deleted post-processing.
 
+---
+
+## Dependencies (`requirements.txt`)
+
+```txt
 django==5.1
 assemblyai==0.26.0
 transformers==4.40.0
 torch==2.3.0
 python-dotenv==1.0.1
 requests==2.31.0
+```
 
-Pushing to GitHub
+---
 
-Ensure .gitignore excludes:venv/
+## Pushing to GitHub
+
+Ensure `.gitignore` includes:
+
+```
+venv/
 *.pyc
 __pycache__/
 .env
 db.sqlite3
+```
 
+Add, commit, and push:
 
-Add and commit files:git add .
+```bash
+git add .
 git commit -m "Darwix AI assessment solution"
-
-
-Push:git remote add origin https://github.com/your-username/darwix-ai-assessment.git
+git remote add origin https://github.com/your-username/darwix-ai-assessment.git
 git push -u origin main
+```
 
+---
 
+## Troubleshooting (Windows)
 
-Troubleshooting (Windows)
+### cURL Not Found
 
-cURL Not Found:
-Verify: curl --version.
-If missing, download from curl.se/windows, extract to C:\curl, and add to PATH.
+```bash
+curl --version
+```
 
+If not found, [download cURL](https://curl.se/windows), extract to `C:\curl`, and add to PATH.
 
-FFmpeg Not Found:
-Verify: ffmpeg -version.
-Ensure C:\ffmpeg\bin is in PATH.
+---
 
+### FFmpeg Not Found
 
-Virtual Environment Issues:
-Use venv\Scripts\activate.bat in Command Prompt.
-Recreate if needed: rmdir /s venv && python -m venv venv.
+```bash
+ffmpeg -version
+```
 
+Ensure `C:\ffmpeg\bin` is in PATH.
 
-API Key Errors:
-Check .env for valid ASSEMBLYAI_API_KEY and no extra spaces.
+---
 
+### Virtual Environment Issues
 
-Dependency Errors:
-Update pip: python -m pip install --upgrade pip.
-Install torch separately: pip install torch==2.3.0 --no-cache-dir.
+```bash
+venv\Scripts\activate.bat
+```
 
+To recreate:
 
-cURL Syntax Errors:
-Use backslashes in file paths.
-Escape JSON quotes: {\"content\":\"text\"}.
+```bash
+rmdir /s venv
+python -m venv venv
+```
 
+---
 
-Slow Responses:
-Use small audio files (<5MB) for transcription.
-First title suggestion request may be slow due to BART model loading.
+### API Key Errors
 
+Ensure `.env` is correct with no extra spaces.
 
+---
 
-For issues, check server logs in Command Prompt or contact [your contact details].
+### Dependency Errors
+
+Update pip:
+
+```bash
+python -m pip install --upgrade pip
+```
+
+If torch fails:
+
+```bash
+pip install torch==2.3.0 --no-cache-dir
+```
+
+---
+
+### cURL Syntax Errors
+
+Use backslashes `\` in paths and escape quotes in JSON:
+
+```bash
+{\"content\":\"text\"}
+```
+
+For PowerShell:
+
+```bash
+curl.exe -X POST -H "Content-Type: application/json" -d '{"content":"This is a blog post about AI."}' http://127.0.0.1:8000/api/suggest-titles/
+```
+
+---
+
+### Slow Responses
+
+Use smaller audio files (<5MB). First title suggestion might take longer due to model loading.
+
+---
+
+For support, check server logs in Command Prompt or contact [your contact info].
