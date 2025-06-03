@@ -1,4 +1,4 @@
-![darwix](https://github.com/user-attachments/assets/d1905352-eca8-4145-b425-b92eb5db6748)# Darwix AI Assessment Solution
+# Darwix AI Assessment Solution
 
 This repository implements two features for the Darwix AI assessment:
 
